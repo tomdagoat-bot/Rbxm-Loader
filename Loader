@@ -1,0 +1,13 @@
+local Loader = {}
+
+function Loader.Load(URL,File,Parent)
+	if not isfile(File) then
+		local data = game:HttpGet(URL)
+		writefile(File, data)
+	end
+
+	local Object = game:GetObjects(getcustomasset(File))[1]
+	Object.Parent = Parent
+	
+	return Object
+end
