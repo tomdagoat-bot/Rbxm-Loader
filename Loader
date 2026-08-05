@@ -11,3 +11,5 @@ function Loader.Load(URL,File,Parent)
 	
 	return Object
 end
+
+return Loader
