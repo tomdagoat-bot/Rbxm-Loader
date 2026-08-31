@@ -1,6 +1,12 @@
 local Loader = {}
 
-function Loader.Load(URL,File,Parent)
+function Loader.Load(URL,File,Parent,Folder)
+	if Folder then
+		File = Folder.."/"..File
+		if not isfolder(Folder) then
+			makefolder(Folder)
+		end
+	end
 	if not isfile(File) then
 		local data = game:HttpGet(URL)
 		writefile(File, data)
@@ -8,8 +14,20 @@ function Loader.Load(URL,File,Parent)
 
 	local Object = game:GetObjects(getcustomasset(File))[1]
 	Object.Parent = Parent
-	
+
 	return Object
+end
+
+function Loader.Remove(File,Folder)
+	if Folder then
+		File = Folder.."/"..File
+		if isfolder(Folder) then
+			deletefolder(Folder)
+		end
+	end
+	if isfile(File) then
+		deletefile(File)
+	end
 end
 
 return Loader
