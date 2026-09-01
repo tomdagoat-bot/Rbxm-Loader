@@ -33,12 +33,10 @@ function Loader.MakeFile(Data,File,Folder)
 	end
 	writefile(File,Data)  -- writefile will overwrite existing or create new
 end
-function Loader.Remove(File,Folder)
+
+function Loader.Remove(File)
 	if Folder then
 		File = Folder.."/"..File
-		if isfolder(Folder) then
-			deletefolder(Folder)
-		end
 	end
 	if isfile(File) then
 		deletefile(File)
