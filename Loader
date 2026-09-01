@@ -13,7 +13,7 @@ function Loader.LoadRbxm(URL,File,Parent,Folder)
 		v.Parent = Parent
 	end
 
-	return Object
+	return #Object == 1 and Object[1] or Object
 end
 
 function Loader.ReadFile(File,Folder)
