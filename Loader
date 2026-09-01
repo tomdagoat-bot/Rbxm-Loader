@@ -1,23 +1,38 @@
 local Loader = {}
 
-function Loader.Load(URL,File,Parent,Folder)
-	if Folder then
-		File = Folder.."/"..File
-		if not isfolder(Folder) then
-			makefolder(Folder)
-		end
+function Loader.LoadRbxm(URL,File,Parent,Folder)	
+	local Path = Folder and File.."/"..Folder or File
+	
+	if not isfile(Path) then
+		Loader.MakeFile(game:HttpGet(URL),File,Folder)
 	end
-	if not isfile(File) then
-		local data = game:HttpGet(URL)
-		writefile(File, data)
+	
+	local Object = game:GetObjects(getcustomasset(Path))
+	
+	for _, v in pairs(Object) do
+		v.Parent = Parent
 	end
-
-	local Object = game:GetObjects(getcustomasset(File))[1]
-	Object.Parent = Parent
 
 	return Object
 end
 
+function Loader.ReadFile(File,Folder)
+	if Folder then
+		File = Folder.."/"..File
+	end
+	if not isfile(File) then return end
+	return readfile(File)
+end
+
+function Loader.MakeFile(Data,File,Folder)
+	if Folder then
+		if not isfolder(Folder) then
+			makefolder(Folder)
+		end
+		File = Folder.."/"..File
+	end
+	return writefile(File,Data)  -- writefile will overwrite existing or create new
+end
 function Loader.Remove(File,Folder)
 	if Folder then
 		File = Folder.."/"..File
