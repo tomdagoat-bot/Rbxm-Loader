@@ -34,7 +34,7 @@ end
 function File_Loader.Read(File,Folder)
 	File = Find_File(File,Folder)
 	
-	if not isfile(File) then error(`File {File} Doesn't Exist!`) return end
+	if not isfile(File) then warn(`File {File} Doesn't Exist!`) return end
 	
 	return readfile(File)
 end
