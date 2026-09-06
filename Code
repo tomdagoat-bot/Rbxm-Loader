@@ -65,7 +65,7 @@ function File_Loader.Remove(File,Folder,Remove_Folder)
 	File = Find_File(File,Folder)
 	
 	if isfile(File) then
-		deletefile(File)
+		delfile(File)
 	end
 end
 
