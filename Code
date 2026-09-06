@@ -15,7 +15,7 @@ function File_Loader.Load(URL,File,Parent,Folder)
 	const Path = Find_File(File,Folder)
 
 	if not isfile(Path) then
-		File_Loader.Write(game:HttpGet(Find_File(URL,File)),File,Folder)
+		File_Loader.Write(game:HttpGet(Find_File(File,URL)),File,Folder)
 		
 		repeat task.wait() until isfile(Path)
 	end
