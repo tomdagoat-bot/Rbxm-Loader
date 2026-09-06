@@ -4,7 +4,7 @@ function Loader.LoadRbxm(URL,File,Parent,Folder)
 	local Path = Folder and Folder.."/"..File or File
 	
 	if not isfile(Path) then
-		Loader.MakeFile(game:HttpGet(URL.."\"..File),File,Folder)
+		Loader.MakeFile(game:HttpGet(URL .. "\" .. File),File,Folder)
 	end
 	
 	local Object = game:GetObjects(getcustomasset(Path))
