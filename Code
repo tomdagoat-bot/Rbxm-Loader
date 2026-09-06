@@ -1,0 +1,72 @@
+const File_Loader = {}
+
+const function Find_File(Name,Folder)
+	if not Folder then
+		return Name
+	elseif not Name then
+		error("Please Provide The Name Of The File")
+		return
+	end
+	
+	return Folder .. "/" .. Name
+end
+
+function File_Loader.Load(URL,File,Parent,Folder)	
+	const Path = Find_File(File,Folder)
+
+	if not isfile(Path) then
+		File_Loader.Write(game:HttpGet(Find_File(URL,File)),File,Folder)
+		
+		repeat task.wait() until isfile(Path)
+	end
+
+	const Object = game:GetObjects(getcustomasset(Path))
+
+	if Parent then
+		for _, v in pairs(Object) do
+			v.Parent = Parent
+		end
+	end
+
+	return #Object == 1 and Object[1] or Object
+end
+
+function File_Loader.Read(File,Folder)
+	File = Find_File(File,Folder)
+	
+	if not isfile(File) then error(`File {File} Doesn't Exist!`) return end
+	
+	return readfile(File)
+end
+
+function File_Loader.Write(Data,File,Folder,Only_Folder)
+	if Folder then
+		if not isfolder(Folder) then
+			makefolder(Folder)
+		end
+		if Only_Folder then return end
+	end
+	
+	if not File then return end
+	
+	File = Find_File(File,Folder)
+	
+	writefile(File,Data) 
+end
+
+function File_Loader.Remove(File,Folder,Remove_Folder)
+	if (not File and Folder) or (Remove_Folder and Folder) then
+		if isfolder(Folder) then
+			delfolder(Folder)
+		end
+		return
+	end
+	
+	File = Find_File(File,Folder)
+	
+	if isfile(File) then
+		deletefile(File)
+	end
+end
+
+return File_Loader
