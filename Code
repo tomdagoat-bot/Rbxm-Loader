@@ -40,11 +40,10 @@ function File_Loader.Read(File,Folder)
 end
 
 function File_Loader.Write(Data,File,Folder,Only_Folder)
-	if Folder then
+	if Folder and Only_Folder then
 		if not isfolder(Folder) then
 			makefolder(Folder)
 		end
-		if Only_Folder then return end
 	end
 	
 	if not File then return end
