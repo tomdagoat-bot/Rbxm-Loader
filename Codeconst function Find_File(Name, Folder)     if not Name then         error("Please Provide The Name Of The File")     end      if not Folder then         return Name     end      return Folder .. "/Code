@@ -27,8 +27,8 @@ function File_Loader.Load(URL,File,Parent,Folder)
 		end
 	end
 
-  const result = #Object == 1 and Object[1] or Object
-  print("Returned",typeof(result))
+    const result = #Object == 1 and Object[1] or Object
+	print("Returned",typeof(result))
 
 	return result
 end
